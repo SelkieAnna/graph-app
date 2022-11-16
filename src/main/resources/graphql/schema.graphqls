@@ -1,0 +1,39 @@
+type NodeDataEntry {
+    key: String!
+    value: String
+}
+
+type Node {
+    id: ID!
+    label: String!
+    data: [NodeDataEntry!]!
+}
+
+type Edge {
+    id: ID
+    source: ID!
+    target: ID!
+}
+
+type Graph {
+    nodes: [Node!]!
+    edges: [Edge!]!
+}
+
+type Query {
+    graph: Graph!
+}
+
+input NodeDataEntryInput {
+    key: String!
+    value: String
+}
+
+type Mutation {
+    addNode(label: String!): Node!
+    setNodeLabel(nodeId: String!, nodeLabel: String!): Node
+    setNodeData(nodeId: String!, data: [NodeDataEntryInput!]!): Node
+    dropNode(id: String!): Node!
+    linkNodes(sourceId: ID!, targetId: ID!): Edge
+    dropEdge(id: ID!): Edge!
+}
